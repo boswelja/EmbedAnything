@@ -124,6 +124,11 @@ impl TextEmbedConfig {
 pub enum SplittingStrategy {
     /// Splits text-based content by sentence, resulting in one embedding per sentence.
     Sentence,
+    /// Splits text-based content by paragraph, where each paragraph is its own embedding
+    Paragraph,
+    /// Splits text-based content into sections denoted by headers. Each header-denoted section
+    /// becomes its own embedding.
+    Section,
     /// Uses an embedder to determine semantic relevance of chunks of text. Produces embeddings that
     /// may be longer, or shorter than a sentence.
     Semantic {
