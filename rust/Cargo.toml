@@ -54,6 +54,9 @@ markdown_to_text = "1.0.0"
 # Web Scraping
 scraper = "0.20.0"
 
+# HTML Processing
+htmd = "0.1.6"
+
 # Text Processing
 url = "2.5.0"
 chrono = "0.4.38"
