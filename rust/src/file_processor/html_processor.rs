@@ -127,15 +127,17 @@ impl HtmlDocument {
 /// A Struct for processing HTML files.
 pub struct HtmlProcessor;
 
-impl Default for HtmlProcessor {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
 impl HtmlProcessor {
     pub fn new() -> Self {
         Self {}
+    }
+
+    pub fn extract_text(file_path: impl AsRef<std::path::Path>) -> Result<String> {
+        let bytes = std::fs::read(file_path)?;
+        let out = String::from_utf8_lossy(&bytes);
+        let markdown = htmd::convert(&out)?;
+        let text = markdown_to_text::convert(&markdown);
+        Ok(text)
     }
 
     /// Extracts the contents of an HTML file.
@@ -154,7 +156,6 @@ impl HtmlProcessor {
         file_path: impl AsRef<std::path::Path>,
         origin: Option<impl Into<String>>,
     ) -> Result<HtmlDocument> {
-        // check if https is in the website. If not, add it.
         let bytes = std::fs::read(file_path)?;
         let out = String::from_utf8_lossy(&bytes);
         self.process_html(out, origin)

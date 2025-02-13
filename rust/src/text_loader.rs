@@ -19,6 +19,7 @@ use tokenizers::Tokenizer;
 use super::file_processor::pdf_processor::PdfProcessor;
 use crate::config::SplittingStrategy;
 use rayon::prelude::*;
+use crate::file_processor::html_processor::HtmlProcessor;
 
 impl Default for TextLoader {
     fn default() -> Self {
@@ -128,6 +129,7 @@ impl TextLoader {
             "pdf" => PdfProcessor::extract_text(file, use_ocr, tesseract_path),
             "md" => MarkdownProcessor::extract_text(file),
             "txt" => TxtProcessor::extract_text(file),
+            "html" => HtmlProcessor::extract_text(file),
             "docx" => DocxProcessor::extract_text(file),
             _ => Err(FileLoadingError::UnsupportedFileType(
                 file.as_ref()
